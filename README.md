@@ -13,88 +13,88 @@
 
 ## 설치 방법
 
-### 1. 이 리포지토리 클론
+### 1. 이 리포지토리 다운로드
 
-```bash
+PowerShell을 열고 아래 명령어를 실행합니다:
+
+```powershell
 git clone https://github.com/slowly007-beep/skiils-for-teachers.git
 ```
 
-### 2. 원하는 스킬을 `~/.claude/skills/`에 복사
+### 2. 원하는 스킬을 복사
 
-```bash
-# document-organizer 설치
-cp -r skiils-for-teachers/skills/document-organizer ~/.claude/skills/
-
-# handover-generator 설치
-cp -r skiils-for-teachers/skills/handover-generator ~/.claude/skills/
-```
-
-Windows에서는:
+**document-organizer 설치:**
 
 ```powershell
-# document-organizer 설치
 Copy-Item -Recurse skiils-for-teachers\skills\document-organizer $env:USERPROFILE\.claude\skills\
+```
 
-# handover-generator 설치
+**handover-generator 설치:**
+
+```powershell
 Copy-Item -Recurse skiils-for-teachers\skills\handover-generator $env:USERPROFILE\.claude\skills\
 ```
 
-### 3. 설정 (document-organizer만 해당)
+**둘 다 설치:**
 
-```bash
-cd ~/.claude/skills/document-organizer
-cp config.example.json config.json
+```powershell
+Copy-Item -Recurse skiils-for-teachers\skills\* $env:USERPROFILE\.claude\skills\
 ```
 
-`config.json`을 열어서 공문서가 저장된 경로를 입력합니다:
-
-```json
-{
-  "profiles": {
-    "work": {
-      "path": "C:\\Users\\{본인 사용자명}\\Desktop\\공문 모음"
-    }
-  }
-}
-```
+설치가 끝나면 Claude Code를 재시작합니다. 추가 설정은 필요 없습니다.
 
 ## 사용법
 
-### document-organizer
+### document-organizer (공문서 자동 분류)
 
 Claude Code에서 다음과 같이 말하면 됩니다:
 
-- `"공문서 정리"` — 기본 프로필 경로의 공문서를 자동 분류
-- `"공문 분류"` — 동일
-- `"personal 프로필로 공문 정리"` — 특정 프로필 사용
+- `"공문서 정리해줘"` — 공문서를 공문번호별 폴더로 자동 분류
+- `"공문 경로 변경"` — 정리 대상 폴더를 변경
 
-**필요 사항:** Node.js 설치 필요
+**처음 실행하면** AI가 공문서 폴더 경로를 물어봅니다. 한 번 알려주면 이후에는 자동으로 기억합니다.
 
-**작동 원리:** 공문 파일명의 패턴 `(기관명-공문번호 (본문/첨부))`을 인식하여, 같은 공문번호의 본문+첨부를 하나의 폴더에 모아줍니다.
+**필요 사항:** [Node.js](https://nodejs.org/) 설치 필요
 
-### handover-generator
+**정리 전:**
+```
+공문 모음\
+├── (인창고등학교-22206 (본문)) [제출] AI 중점학교 운영 신청.pdf
+├── (인창고등학교-22206 (첨부)) [붙임1] 신청서.hwpx
+├── (인창고등학교-22206 (첨부)) [붙임2] 계획서.hwpx
+├── (인창고등학교-568 (본문)) [제출] 디지털튜터.pdf
+└── (인창고등학교-568 (첨부)) [붙임1] 명단.xlsx
+```
 
-- `"인수인계서 작성"` — 공문 폴더를 분석하여 마크다운 인수인계서 생성
+**정리 후:**
+```
+공문 모음\
+├── (인창고등학교-22206 (본문)) [제출] AI 중점학교 운영 신청\
+│   ├── (인창고등학교-22206 (본문)) [제출] AI 중점학교 운영 신청.pdf
+│   ├── (인창고등학교-22206 (첨부)) [붙임1] 신청서.hwpx
+│   └── (인창고등학교-22206 (첨부)) [붙임2] 계획서.hwpx
+└── (인창고등학교-568 (본문)) [제출] 디지털튜터\
+    ├── (인창고등학교-568 (본문)) [제출] 디지털튜터.pdf
+    └── (인창고등학교-568 (첨부)) [붙임1] 명단.xlsx
+```
+
+### handover-generator (인수인계서 자동 생성)
+
+- `"인수인계서 작성해줘"` — 공문 폴더를 분석하여 마크다운 인수인계서 생성
 - `"공문 분석해줘"` — 공문 분류 결과만 확인
-- `"인수인계서 검증"` — 기존 인수인계서와 공문 목록 교차 검증
+- `"인수인계서 검증해줘"` — 기존 인수인계서와 공문 목록 교차 검증
 
-**작동 원리:** 공문 파일명에서 기관명, 공문번호, 제목을 추출하고, 업무 카테고리별로 자동 분류한 뒤 구조화된 인수인계서를 작성합니다. 파일 내용은 열지 않으며, 파일명만으로 동작합니다.
+파일 내용은 열지 않으며, **파일명만으로** 업무를 분류하고 인수인계서를 작성합니다.
 
-**출력 형식:** 노션 Import 호환 마크다운 (.md)
+출력은 **노션 Import 호환 마크다운** (.md) 형식입니다.
 
 ## 대상 파일명 패턴
 
-이 스킬들은 한국 공공기관 전자문서시스템에서 내보낸 공문서 파일명을 기준으로 동작합니다:
+이 스킬들은 한국 공공기관 전자문서시스템(업무관리시스템)에서 내보낸 공문서 파일명을 기준으로 동작합니다:
 
 ```
 (기관명-공문번호 (본문)) 문서 제목.pdf
 (기관명-공문번호 (첨부)) [붙임1] 첨부 제목.hwpx
-```
-
-예시:
-```
-(인창고등학교-22206 (본문)) [제출] AI 중점학교 운영 신청.pdf
-(인창고등학교-22206 (첨부)) [붙임1] 신청서.hwpx
 ```
 
 ## 라이선스
