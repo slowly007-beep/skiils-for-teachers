@@ -13,35 +13,69 @@
 
 ## 설치 방법
 
-### 1. 이 리포지토리 다운로드
+두 가지 방법 중 편한 것을 선택하세요.
 
-PowerShell을 열고 아래 명령어를 실행합니다:
+---
+
+### 방법 A: 직접 다운로드 (터미널 없이)
+
+**1단계.** 이 페이지 상단의 초록색 **`<> Code`** 버튼 → **`Download ZIP`** 클릭
+
+**2단계.** 다운로드된 ZIP 파일을 압축 해제
+
+**3단계.** 압축 해제한 폴더 안의 `skills` 폴더를 엽니다. 그 안에 `document-organizer`, `handover-generator` 폴더가 있습니다.
+
+**4단계.** 원하는 스킬 폴더를 아래 경로에 복사합니다:
+
+```
+C:\Users\{본인 사용자명}\.claude\skills\
+```
+
+> **`.claude` 폴더가 안 보인다면:** 파일 탐색기 상단 메뉴에서 **보기 → 숨긴 항목** 체크를 켜세요.
+>
+> **`.claude` 폴더 자체가 없다면:** Claude Code를 한 번이라도 실행하면 자동 생성됩니다.
+
+**5단계.** Claude Code를 재시작하면 설치 완료!
+
+---
+
+### 방법 B: 터미널 사용
+
+**1단계. PowerShell 열기**
+
+`Win + X` 를 누른 뒤 **"터미널"** 또는 **"Windows PowerShell"** 을 클릭합니다.
+
+> 명령 프롬프트(cmd)가 열렸다면 아래 명령어가 약간 다릅니다. PowerShell을 권장합니다.
+
+**2단계. 리포지토리 다운로드**
 
 ```powershell
 git clone https://github.com/slowly007-beep/skiils-for-teachers.git
 ```
 
-### 2. 원하는 스킬을 복사
+**3단계. 스킬 복사**
 
-**document-organizer 설치:**
+document-organizer 설치:
 
 ```powershell
 Copy-Item -Recurse skiils-for-teachers\skills\document-organizer $env:USERPROFILE\.claude\skills\
 ```
 
-**handover-generator 설치:**
+handover-generator 설치:
 
 ```powershell
 Copy-Item -Recurse skiils-for-teachers\skills\handover-generator $env:USERPROFILE\.claude\skills\
 ```
 
-**둘 다 설치:**
+둘 다 한번에 설치:
 
 ```powershell
 Copy-Item -Recurse skiils-for-teachers\skills\* $env:USERPROFILE\.claude\skills\
 ```
 
-설치가 끝나면 Claude Code를 재시작합니다. 추가 설정은 필요 없습니다.
+**4단계.** Claude Code를 재시작하면 설치 완료!
+
+---
 
 ## 사용법
 
