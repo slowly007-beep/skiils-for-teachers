@@ -6,10 +6,10 @@
 
 ## 포함된 스킬
 
-| 스킬 | 설명 |
-|------|------|
-| **document-organizer** | 공문서 파일을 공문번호별로 자동 분류하여 폴더로 정리 |
-| **handover-generator** | 공문서 파일명을 분석하여 업무 인수인계서를 자동 생성 |
+| 스킬 | 설명 | 사용법 |
+|------|------|--------|
+| **document-organizer** | 공문서 파일을 공문번호별로 자동 분류하여 폴더로 정리 | [README](skills/document-organizer/README.md) |
+| **handover-generator** | 공문서 파일명을 분석하여 업무 인수인계서를 자동 생성 | [README](skills/handover-generator/README.md) |
 
 ## 설치 방법
 
@@ -71,41 +71,21 @@ git --version
 
 **4단계.** 설치가 끝나면 **PowerShell을 닫았다가 다시 열고**, `git --version`을 다시 입력하여 설치를 확인합니다.
 
-#### 스킬 다운로드
+#### 스킬 다운로드 및 설치
 
-**1단계.** PowerShell에서 아래 명령어를 붙여넣고 Enter를 누릅니다. 이 명령어는 GitHub에 올라와 있는 스킬 파일들을 내 컴퓨터로 복사하는 것입니다:
+**1단계.** PowerShell에서 아래 명령어를 붙여넣고 Enter를 누릅니다. GitHub에 올라와 있는 스킬 파일들을 내 컴퓨터로 복사합니다:
 
 ```powershell
 git clone https://github.com/slowly007-beep/skiils-for-teachers.git
 ```
 
-> 실행하면 `Cloning into 'skiils-for-teachers'...` 메시지가 나오면서 다운로드가 진행됩니다. 완료되면 현재 폴더에 `skiils-for-teachers` 폴더가 생깁니다.
-
-#### 스킬 설치 (복사)
-
-**2단계.** 아래 명령어 중 원하는 것을 붙여넣고 Enter를 누릅니다.
-
-둘 다 한번에 설치 (추천):
+**2단계.** 모든 스킬을 설치합니다:
 
 ```powershell
 Copy-Item -Recurse skiils-for-teachers\skills\* $env:USERPROFILE\.claude\skills\
 ```
 
-document-organizer만 설치:
-
-```powershell
-Copy-Item -Recurse skiils-for-teachers\skills\document-organizer $env:USERPROFILE\.claude\skills\
-```
-
-handover-generator만 설치:
-
-```powershell
-Copy-Item -Recurse skiils-for-teachers\skills\handover-generator $env:USERPROFILE\.claude\skills\
-```
-
-#### 설치 확인
-
-**3단계.** 아래 명령어로 파일이 제대로 복사되었는지 확인합니다:
+**3단계.** 설치 확인:
 
 ```powershell
 ls $env:USERPROFILE\.claude\skills\
@@ -120,51 +100,6 @@ ls $env:USERPROFILE\.claude\skills\
 **4단계.** Claude Code를 재시작하면 설치 완료!
 
 ---
-
-## 사용법
-
-### document-organizer (공문서 자동 분류)
-
-Claude Code에서 다음과 같이 말하면 됩니다:
-
-- `"공문서 정리해줘"` — 공문서를 공문번호별 폴더로 자동 분류
-- `"공문 경로 변경"` — 정리 대상 폴더를 변경
-
-**처음 실행하면** AI가 공문서 폴더 경로를 물어봅니다. 한 번 알려주면 이후에는 자동으로 기억합니다.
-
-**필요 사항:** [Node.js](https://nodejs.org/) 설치 필요
-
-**정리 전:**
-```
-공문 모음\
-├── (인창고등학교-22206 (본문)) [제출] AI 중점학교 운영 신청.pdf
-├── (인창고등학교-22206 (첨부)) [붙임1] 신청서.hwpx
-├── (인창고등학교-22206 (첨부)) [붙임2] 계획서.hwpx
-├── (인창고등학교-568 (본문)) [제출] 디지털튜터.pdf
-└── (인창고등학교-568 (첨부)) [붙임1] 명단.xlsx
-```
-
-**정리 후:**
-```
-공문 모음\
-├── (인창고등학교-22206 (본문)) [제출] AI 중점학교 운영 신청\
-│   ├── (인창고등학교-22206 (본문)) [제출] AI 중점학교 운영 신청.pdf
-│   ├── (인창고등학교-22206 (첨부)) [붙임1] 신청서.hwpx
-│   └── (인창고등학교-22206 (첨부)) [붙임2] 계획서.hwpx
-└── (인창고등학교-568 (본문)) [제출] 디지털튜터\
-    ├── (인창고등학교-568 (본문)) [제출] 디지털튜터.pdf
-    └── (인창고등학교-568 (첨부)) [붙임1] 명단.xlsx
-```
-
-### handover-generator (인수인계서 자동 생성)
-
-- `"인수인계서 작성해줘"` — 공문 폴더를 분석하여 마크다운 인수인계서 생성
-- `"공문 분석해줘"` — 공문 분류 결과만 확인
-- `"인수인계서 검증해줘"` — 기존 인수인계서와 공문 목록 교차 검증
-
-파일 내용은 열지 않으며, **파일명만으로** 업무를 분류하고 인수인계서를 작성합니다.
-
-출력은 **노션 Import 호환 마크다운** (.md) 형식입니다.
 
 ## 대상 파일명 패턴
 
