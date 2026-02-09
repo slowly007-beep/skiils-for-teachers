@@ -28,7 +28,7 @@ function getTargetDirectory(config, profileName) {
 }
 
 // ── Pattern ─────────────────────────────────────────────
-const PATTERN = /\(([^-]+)-(\d+)\s+\((본문|첨부)\)\)/;
+const PATTERN = /\(([^-]+)-(\d+)\s+\((본문|첨부)\)[^)]*\)/;
 
 function groupFiles(files) {
   const groups = {};

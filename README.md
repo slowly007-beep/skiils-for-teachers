@@ -10,6 +10,7 @@
 |------|------|--------|
 | **document-organizer** | 공문서 파일을 공문번호별로 자동 분류하여 폴더로 정리 | [README](skills/document-organizer/README.md) |
 | **handover-generator** | 공문서 파일명을 분석하여 업무 인수인계서를 자동 생성 | [README](skills/handover-generator/README.md) |
+| **student-record-writer** | 학생 산출물·관찰 메모를 바탕으로 교과세특(생기부) 초안 작성 | [README](skills/student-record-writer/README.md) |
 
 ## 설치 방법
 
@@ -85,13 +86,33 @@ git clone https://github.com/slowly007-beep/skiils-for-teachers.git
 Copy-Item -Recurse skiils-for-teachers\skills\* $env:USERPROFILE\.claude\skills\
 ```
 
-**3단계.** 설치 확인:
+document-organizer만 설치:
+
+```powershell
+Copy-Item -Recurse skiils-for-teachers\skills\document-organizer $env:USERPROFILE\.claude\skills\
+```
+
+handover-generator만 설치:
+
+```powershell
+Copy-Item -Recurse skiils-for-teachers\skills\handover-generator $env:USERPROFILE\.claude\skills\
+```
+
+student-record-writer만 설치:
+
+```powershell
+Copy-Item -Recurse skiils-for-teachers\skills\student-record-writer $env:USERPROFILE\.claude\skills\
+```
+
+#### 설치 확인
+
+**3단계.** 아래 명령어로 파일이 제대로 복사되었는지 확인합니다:
 
 ```powershell
 ls $env:USERPROFILE\.claude\skills\
 ```
 
-`document-organizer`, `handover-generator` 등의 폴더가 보이면 성공입니다.
+`document-organizer`, `handover-generator`, `student-record-writer` 등의 폴더가 보이면 성공입니다.
 
 > **오류가 났다면:**
 > - `Copy-Item: Cannot find path...` → `git clone`이 제대로 되었는지 확인하세요. PowerShell에서 `ls skiils-for-teachers` 를 입력했을 때 파일 목록이 보여야 합니다.
@@ -100,6 +121,61 @@ ls $env:USERPROFILE\.claude\skills\
 **4단계.** Claude Code를 재시작하면 설치 완료!
 
 ---
+
+## 사용법
+
+### document-organizer (공문서 자동 분류)
+
+Claude Code에서 다음과 같이 말하면 됩니다:
+
+- `"공문서 정리해줘"` — 공문서를 공문번호별 폴더로 자동 분류
+- `"공문 경로 변경"` — 정리 대상 폴더를 변경
+
+**처음 실행하면** AI가 공문서 폴더 경로를 물어봅니다. 한 번 알려주면 이후에는 자동으로 기억합니다.
+
+**필요 사항:** [Node.js](https://nodejs.org/) 설치 필요
+
+**정리 전:**
+```
+공문 모음\
+├── (인창고등학교-22206 (본문)) [제출] AI 중점학교 운영 신청.pdf
+├── (인창고등학교-22206 (첨부)) [붙임1] 신청서.hwpx
+├── (인창고등학교-22206 (첨부)) [붙임2] 계획서.hwpx
+├── (인창고등학교-568 (본문)) [제출] 디지털튜터.pdf
+└── (인창고등학교-568 (첨부)) [붙임1] 명단.xlsx
+```
+
+**정리 후:**
+```
+공문 모음\
+├── (인창고등학교-22206 (본문)) [제출] AI 중점학교 운영 신청\
+│   ├── (인창고등학교-22206 (본문)) [제출] AI 중점학교 운영 신청.pdf
+│   ├── (인창고등학교-22206 (첨부)) [붙임1] 신청서.hwpx
+│   └── (인창고등학교-22206 (첨부)) [붙임2] 계획서.hwpx
+└── (인창고등학교-568 (본문)) [제출] 디지털튜터\
+    ├── (인창고등학교-568 (본문)) [제출] 디지털튜터.pdf
+    └── (인창고등학교-568 (첨부)) [붙임1] 명단.xlsx
+```
+
+### handover-generator (인수인계서 자동 생성)
+
+- `"인수인계서 작성해줘"` — 공문 폴더를 분석하여 마크다운 인수인계서 생성
+- `"공문 분석해줘"` — 공문 분류 결과만 확인
+- `"인수인계서 검증해줘"` — 기존 인수인계서와 공문 목록 교차 검증
+
+파일 내용은 열지 않으며, **파일명만으로** 업무를 분류하고 인수인계서를 작성합니다.
+
+출력은 **노션 Import 호환 마크다운** (.md) 형식입니다.
+
+### student-record-writer (교과세특 초안 작성)
+
+- `"생기부 작성해줘"` — 학생 텍스트를 요청한 후 세특 초안 작성
+- `"이 보고서로 세특 써줘"` + 텍스트 — 제공된 텍스트로 바로 세특 초안 작성
+- `"이 파일로 생기부 써줘"` + 파일 경로 — 파일을 읽고 세특 초안 작성
+
+학생의 에세이, 탐구 보고서, 교사 관찰 메모를 바탕으로 **[성취수준 → 수행 과정 → 역량 → 교사 총평]** 구조의 교과세특 문구를 생성합니다.
+
+기재요령 금지 사항(교외 수상, 공인어학성적, 학교명 등)을 자동 점검합니다.
 
 ## 대상 파일명 패턴
 
