@@ -8,19 +8,37 @@
 
 ## 구조
 
+**최초 실행 시 자동 생성되는 구조:**
+
 ```json
 {
   "version": "1.0",
   "default_profile": "work",
   "profiles": {
     "work": {
-      "name": "업무용 공문 폴더",
-      "path": "C:\\Users\\{사용자명}\\Desktop\\공문 모음",
+      "name": "기본 공문 폴더",
+      "path": "(사용자가 지정한 경로)",
+      "last_used": null
+    }
+  }
+}
+```
+
+**프로필을 추가한 경우 예시:**
+
+```json
+{
+  "version": "1.0",
+  "default_profile": "work",
+  "profiles": {
+    "work": {
+      "name": "기본 공문 폴더",
+      "path": "(사용자가 지정한 경로 1)",
       "last_used": "2025-01-17T10:30:00Z"
     },
     "personal": {
       "name": "개인 공문 폴더",
-      "path": "D:\\Documents\\공문보관함",
+      "path": "(사용자가 지정한 경로 2)",
       "last_used": null
     }
   }
@@ -39,9 +57,10 @@
 
 ## 경로 규칙
 
-- **Windows 절대경로만 허용:** `C:\\Users\\{사용자명}\\...`
+- **Windows 절대경로만 허용:** 예: `C:\\Users\\username\\...`
 - **JSON 내 역슬래시 이스케이프:** `\` → `\\`
 - **금지:** `/c/Users/...` (Git Bash 스타일), 상대경로
+- **기본값 없음:** 사용자가 최초 실행 시 지정한 경로가 곧 기본값
 
 ## 프로필 관리
 
@@ -51,7 +70,7 @@
 ```json
 "archive": {
   "name": "보관용 공문",
-  "path": "D:\\Archive\\공문",
+  "path": "(사용자가 지정한 보관 경로)",
   "last_used": null
 }
 ```
