@@ -4,6 +4,45 @@
 
 파일 내용은 열지 않으며, **파일명만으로** 업무를 분류하고 인수인계서를 작성합니다.
 
+## 필수 환경
+
+이 스킬은 **Node.js 18 이상**이 필요합니다. 대량의 JSON 데이터 처리를 위해 Node.js 스크립트를 사용합니다.
+
+### Node.js 설치
+
+#### Windows
+```bash
+# Chocolatey 사용
+choco install nodejs-lts
+
+# 또는 공식 사이트에서 다운로드
+# https://nodejs.org/
+```
+
+#### macOS
+```bash
+# Homebrew 사용
+brew install node
+
+# 또는 공식 사이트에서 다운로드
+# https://nodejs.org/
+```
+
+#### Linux
+```bash
+# Ubuntu/Debian
+sudo apt update
+sudo apt install nodejs npm
+
+# Fedora
+sudo dnf install nodejs
+```
+
+설치 후 버전 확인:
+```bash
+node --version  # v18.0.0 이상이어야 함
+```
+
 ## 사용법
 
 Claude Code에서 다음과 같이 말하면 됩니다:
